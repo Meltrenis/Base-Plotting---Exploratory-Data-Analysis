@@ -31,17 +31,21 @@ Cdata_DF<-data_DF[complete.cases(data_DF),]
 # for(i in cols_to_change){
 #   class(Cdata_DF[,i])<-"numeric"  #También valdría Cdata_DF[,3]<-as.numeric(Cdata_DF[,3])
 # }
+# # Format column classes
+# cols_to_change<-seq(3,9)
+# for(i in cols_to_change){
+#   class(Cdata_DF[,i])<-"numeric"  #También valdría Cdata_DF[,3]<-as.numeric(Cdata_DF[,3])
+# }
 
-Cdata_TBL<-tbl_df(data_DF)
+Cdata_DF[,1]<-as.Date(Cdata_DF[,1],"%d/%m/%Y")
+
+# Obtaining an enhanced DF
+Cdata_TBL<-tbl_df(Cdata_DF)
 
 #PLOT 1
 png(filename ="plot1.png", width = 480, height = 480, units = "px")
 hist(Cdata_TBL$Global_active_power,
-     main = "Global Active Power",
-     axes=FALSE,
-     freq =TRUE, 
-     col="red",
-     xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
-axis(side = 1,at = seq(0,6,2),labels =seq(0,6,2))
-axis(side = 2,at = seq(0,1200,200),labels = seq(0,1200,200))
+             main = "Global Active Power",
+             col="red",
+             xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
 dev.off()
